@@ -1,0 +1,21 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack",
+    "watch-webpack": "webpack --watch",
+    "compile": "tsc",
+    "watch-ts": "tsc -w",
+    "watch":"concurrently --kill-others \"npm run watch-ts\" \"npm run watch-webpack\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "typescript": "^2.5.2",
+    "webpack": "^3.6.0"
+  }
+}
