@@ -1,3 +1,4 @@
+import { MensagensView } from './../views/MensagensView';
 import { NegociacoesView } from './../views/NegociacoesView';
 import { DateHelper } from './../helpers/DateHelper';
 import { Negociacao } from './../models/Negociacao';
@@ -9,7 +10,8 @@ export class NegociacaoController {
   protected _inputValor: HTMLInputElement;
 
   private _negociacoes = new Negociacoes();
-  private _view = new NegociacoesView('#listaNegociacoes');
+  private _negociacoesView = new NegociacoesView('#listaNegociacoes');
+  private _mensagensView = new MensagensView('#mensagemView');
 
   constructor() {
     let $ = document.querySelector.bind(document);
@@ -18,7 +20,7 @@ export class NegociacaoController {
     this._inputQuantidade = <HTMLInputElement>$('#quantidade');
     this._inputValor = <HTMLInputElement>$('#valor');
 
-    this._view.update(this._negociacoes);
+    this._negociacoesView.update(this._negociacoes);
   }
 
   adiciona(event: Event): void {
@@ -26,7 +28,8 @@ export class NegociacaoController {
 
     let negociacao = this._criaNegociacao();
     this._negociacoes.add(negociacao);
-    this._view.update(this._negociacoes);
+    this._negociacoesView.update(this._negociacoes);
+    this._mensagensView.update('Negociação incluída com sucesso!');
     this._limpaFormulario();
   }
 

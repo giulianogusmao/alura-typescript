@@ -1,21 +1,11 @@
+import { View } from './View';
 import { DateHelper } from './../helpers/DateHelper';
 import { Negociacao } from './../models/Negociacao';
 import { Negociacoes } from './../models/Negociacoes';
 
-export class NegociacoesView {
-  private _element: Element;
+export class NegociacoesView extends View<Negociacoes> {
 
-  constructor(
-    private _selector: string
-  ) {
-    this._element = document.querySelector(this._selector);
-  }
-
-  update(model: Negociacoes): void {
-    this._element.innerHTML = this._template(model.toArray());
-  }
-
-  private _template(model: Negociacao[]): string {
+  protected _template(model: Negociacoes): string {
     return `
     <table class="table table-hover table-bordered">
       <thead>
@@ -28,7 +18,7 @@ export class NegociacoesView {
       </thead>
 
       <tbody>
-        ${model.map(negociacao => `
+        ${model.toArray().map(negociacao => `
           <tr>
             <td>${DateHelper.dateToStr(negociacao.data)}</td>
             <td>${negociacao.quantidade}</td>
