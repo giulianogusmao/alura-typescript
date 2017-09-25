@@ -5,7 +5,7 @@ import { Negociacoes } from './../models/Negociacoes';
 
 export class NegociacoesView extends View<Negociacoes> {
 
-  protected _template(model: Negociacoes): string {
+  _template(model: Negociacoes): string {
     return `
     <table class="table table-hover table-bordered">
       <thead>

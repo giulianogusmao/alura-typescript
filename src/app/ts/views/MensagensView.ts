@@ -12,7 +12,7 @@ export class MensagensView extends View<string> {
       this._clearTimer();
   }
 
-  protected _template(texto: string): string {
+  _template(texto: string): string {
     return texto ? `
         <p class="alert alert-info">${texto}</p>
       ` : '';
