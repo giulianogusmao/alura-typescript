@@ -5,20 +5,18 @@ import { Negociacao } from './../models/Negociacao';
 import { Negociacoes } from '../models/Negociacoes';
 
 export class NegociacaoController {
-  protected _inputData: HTMLInputElement;
-  protected _inputQuantidade: HTMLInputElement ;
-  protected _inputValor: HTMLInputElement;
+  protected _inputData: JQuery;
+  protected _inputQuantidade: JQuery ;
+  protected _inputValor: JQuery;
 
   private _negociacoes = new Negociacoes();
   private _negociacoesView = new NegociacoesView('#listaNegociacoes');
   private _mensagensView = new MensagensView('#mensagemView');
 
   constructor() {
-    let $ = document.querySelector.bind(document);
-
-    this._inputData = <HTMLInputElement>$('#data');
-    this._inputQuantidade = <HTMLInputElement>$('#quantidade');
-    this._inputValor = <HTMLInputElement>$('#valor');
+    this._inputData = $('#data');
+    this._inputQuantidade = $('#quantidade');
+    this._inputValor = $('#valor');
 
     this._negociacoesView.update(this._negociacoes);
   }
@@ -34,9 +32,9 @@ export class NegociacaoController {
   }
 
   private _criaNegociacao(): Negociacao {
-    let data = this._inputData.value,
-        quantidade = this._inputQuantidade.value,
-        valor = this._inputValor.value;
+    let data = <string>this._inputData.val(),
+        quantidade = <string>this._inputQuantidade.val(),
+        valor = <string>this._inputValor.val();
 
     let negociacao = new Negociacao(
       new Date(data.replace(/-/g, ',')),
@@ -48,8 +46,8 @@ export class NegociacaoController {
   }
 
   private _limpaFormulario(): void {
-    this._inputData.value = '';
-    this._inputQuantidade.value = '1';
-    this._inputValor.value = '0.0';
+    this._inputData.val('');
+    this._inputQuantidade.val('1');
+    this._inputValor.val('0.0');
   }
 }

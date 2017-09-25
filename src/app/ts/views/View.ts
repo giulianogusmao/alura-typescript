@@ -2,16 +2,16 @@ import { Negociacao } from './../models/Negociacao';
 import { Negociacoes } from '../models/Negociacoes';
 
 export abstract class View<T> {
-  private _element: Element;
+  private _element: JQuery;
 
   constructor(
     private _selector: string
   ) {
-    this._element = document.querySelector(this._selector);
+    this._element = $(this._selector);
   }
 
   update(model: T): void {
-    this._element.innerHTML = this._template(model);
+    this._element.html(this._template(model));
   }
 
   abstract _template(model: T): string;
