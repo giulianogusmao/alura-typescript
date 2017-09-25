@@ -3,8 +3,8 @@ export class Negociacao {
 
   constructor(
     private _data: Date,
-    private _quantidade: number = 1,
-    private _valor: number = 0
+    private _quantidade: number,
+    private _valor: number
   ) {
     this._quantidade = parseInt(this._quantidade.toString());
     this._valor = Number(parseFloat(this.valor.toString()).toFixed(2));

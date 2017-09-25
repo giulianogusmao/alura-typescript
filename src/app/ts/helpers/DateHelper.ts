@@ -10,14 +10,14 @@ export class DateHelper {
   */
 
   // return string da data no formato dd/mm/yyyy ou yyyy-mm-dd
-  static dateToStr(date, isBr = true) {
+  static dateToStr(date: Date, isBr = true) {
     let pt = new Intl.DateTimeFormat('pt-BR'),
       dateBr = pt.format(date);
 
     return isBr ? dateBr : dateBr.split('/').reverse().join('-');
   }
 
-  static strToDate(str) {
+  static strToDate(str: string) {
     let array = [],
       regexUS = /\d{4}-\d{1,2}-\d{1,2}/g,
       regexBR = /\d{1,2}\/\d{1,2}\/\d{4}/g;
@@ -26,14 +26,14 @@ export class DateHelper {
       case regexUS.test(str):
         array = str
           .split('-') // quebra a data em um array
-          .map((item, i) => item - i % 2); // subtrai 1 para o indice impar
+          .map((item: string, i) => Number(item) - i % 2); // subtrai 1 para o indice impar
         break;
 
       case regexBR.test(str):
         array = str
           .split('/')
           .reverse()
-          .map((item, i) => item - i % 2); // subtrai 1 para o indice impar
+          .map((item: string, i) => Number(item) - i % 2); // subtrai 1 para o indice impar
         break;
 
       default:

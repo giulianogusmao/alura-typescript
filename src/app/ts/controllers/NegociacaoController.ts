@@ -2,19 +2,19 @@ import { DateHelper } from './../helpers/DateHelper';
 import { Negociacao } from './../models/Negociacao';
 
 export class NegociacaoController {
-  protected _inputData;
-  protected _inputQuantidade;
-  protected _inputValor;
+  protected _inputData: HTMLInputElement;
+  protected _inputQuantidade: HTMLInputElement ;
+  protected _inputValor: HTMLInputElement;
 
   constructor() {
     let $ = document.querySelector.bind(document);
 
-    this._inputData = $('#data');
-    this._inputQuantidade = $('#quantidade');
-    this._inputValor = $('#valor');
+    this._inputData = <HTMLInputElement>$('#data');
+    this._inputQuantidade = <HTMLInputElement>$('#quantidade');
+    this._inputValor = <HTMLInputElement>$('#valor');
   }
 
-  adiciona(event) {
+  adiciona(event: Event) {
     event.preventDefault();
 
     console.groupCollapsed('Adiciona Negociação');
@@ -30,9 +30,9 @@ export class NegociacaoController {
         valor = this._inputValor.value;
 
     let negociacao = new Negociacao(
-      new Date(data),
-      quantidade,
-      valor
+      new Date(data.replace(/-/g, ',')),
+      parseInt(quantidade),
+      parseFloat(valor)
     );
 
     console.log('cria negociacao');
