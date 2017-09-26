@@ -1,4 +1,4 @@
-import { DateHelper } from './../helpers/index';
+import { DateHelper, logaTempoDeExecucao } from './../helpers/index';
 import { Negociacao, Negociacoes } from './../models/index';
 import { MensagensView, NegociacoesView } from './../views/index';
 
@@ -19,6 +19,7 @@ export class NegociacaoController {
     this._negociacoesView.update(this._negociacoes);
   }
 
+  // @logaTempoDeExecucao(true)
   adiciona(event: Event): void {
     event.preventDefault();
 
