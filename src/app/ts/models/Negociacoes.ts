@@ -12,7 +12,7 @@ export class Negociacoes {
     this._lista.push(negociacao);
   }
 
-  toArray(): Array<Negociacao> {
-    return [].concat(this._lista);
+  toArray(): Negociacao[] {
+    return ([] as Negociacao[]).concat(this._lista);
   }
 }

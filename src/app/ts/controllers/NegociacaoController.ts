@@ -23,6 +23,12 @@ export class NegociacaoController {
     event.preventDefault();
 
     let negociacao = this._criaNegociacao();
+
+    if (!this._isDiaUtil(negociacao.data)) { // regra de negócio deve ser inserido na model negociacao
+      this._mensagensView.update('Data da negociação deve ser um dia útil');
+      return;
+    }
+
     this._negociacoes.add(negociacao);
     this._negociacoesView.update(this._negociacoes);
     this._mensagensView.update('Negociação incluída com sucesso!');
@@ -35,7 +41,7 @@ export class NegociacaoController {
         valor = <string>this._inputValor.val();
 
     let negociacao = new Negociacao(
-      new Date(data.replace(/-/g, ',')),
+      DateHelper.strToDate(data),
       parseInt(quantidade),
       parseFloat(valor)
     );
@@ -48,4 +54,18 @@ export class NegociacaoController {
     this._inputQuantidade.val('1');
     this._inputValor.val('0.0');
   }
+
+  private  _isDiaUtil(date: Date) {
+    return date.getDay() != DiaSemana.Sabado && date.getDay() != DiaSemana.Domingo;
+  }
+}
+
+enum DiaSemana {
+  Domingo,
+  Segunda,
+  Terca,
+  Quarta,
+  Quinta,
+  Sexta,
+  Sabado
 }

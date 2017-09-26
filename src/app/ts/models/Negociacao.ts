@@ -1,33 +1,15 @@
 export class Negociacao {
-  private _volume: number;
 
   constructor(
-    private _data: Date,
-    private _quantidade: number,
-    private _valor: number
+    readonly data: Date,
+    readonly quantidade: number,
+    readonly valor: number
   ) {
-    this._quantidade = parseInt(this._quantidade.toString());
-    this._valor = Number(parseFloat(this.valor.toString()).toFixed(2));
-    this._calcVolume();
-  }
-
-  get data(): Date {
-    return new Date(this._data.getTime());
-  }
-
-  get quantidade(): number {
-    return this._quantidade;
-  }
-
-  get valor(): number {
-    return this._valor;
+    this.quantidade = parseInt(this.quantidade.toString());
+    this.valor = Number(parseFloat(this.valor.toString()).toFixed(2));
   }
 
   get volume(): number {
-    return this._volume;
-  }
-
-  private _calcVolume(): void {
-    this._volume = this.quantidade * this.valor;
+    return this.quantidade * this.valor;
   }
 }
