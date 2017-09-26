@@ -38,19 +38,14 @@
 
   <div id="listaNegociacoes"></div>
 
-  <!-- <script src="lib/system.js"></script> -->
-  <!-- <script>
-    SystemJS.config({
-      baseURL: './js/'
-    });
-    System.defaultJSExtensions = false;
-    SystemJS.import('app.js').catch(function (err) {
-      console.log(err);
-    });
-  </script> -->
-
   <script src="./lib/jquery.min.js"></script>
-  <script src="./js/app.bundle.js"></script>
+  <script src="./lib/system.js"></script>
+  <script>
+    System.defaultJSExtensions = true;
+    SystemJS.import('js/app.js').catch(err => console.log(err));
+  </script>
+
+  <!-- <script src="./js/app.bundle.js"></script> -->
 </body>
 
 </html>

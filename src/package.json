@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack",
-    "watch-webpack": "webpack --watch",
     "compile": "tsc",
-    "watch-ts": "tsc -w",
-    "watch": "concurrently --kill-others \"npm run watch-ts\" \"npm run watch-webpack\"",
+    "watch": "tsc -w",
+    "server": "lite-server --baseDir=app",
+    "start": "concurrently --kill-others \"npm run watch\" \"npm run server\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,7 +15,7 @@
   "devDependencies": {
     "@types/jquery": "^3.2.12",
     "concurrently": "^3.5.0",
-    "typescript": "^2.5.2",
-    "webpack": "^3.6.0"
+    "lite-server": "^2.3.0",
+    "typescript": "^2.5.2"
   }
 }
