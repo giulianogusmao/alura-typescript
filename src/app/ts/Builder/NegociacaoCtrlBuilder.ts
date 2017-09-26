@@ -1,5 +1,5 @@
-import { DateHelper } from './../helpers/DateHelper';
-import { NegociacaoController } from './../controllers/NegociacaoController';
+import { DateHelper } from './../helpers/index';
+import { NegociacaoController } from './../controllers/index';
 
 export class NegociacaoControllerBuilder extends NegociacaoController {
 

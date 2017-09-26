@@ -1,6 +1,3 @@
-import { Negociacao } from './../models/Negociacao';
-import { Negociacoes } from '../models/Negociacoes';
-
 export abstract class View<T> {
   private _element: JQuery;
 

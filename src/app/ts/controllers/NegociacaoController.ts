@@ -1,8 +1,6 @@
-import { MensagensView } from './../views/MensagensView';
-import { NegociacoesView } from './../views/NegociacoesView';
-import { DateHelper } from './../helpers/DateHelper';
-import { Negociacao } from './../models/Negociacao';
-import { Negociacoes } from '../models/Negociacoes';
+import { DateHelper } from './../helpers/index';
+import { Negociacao, Negociacoes } from './../models/index';
+import { MensagensView, NegociacoesView } from './../views/index';
 
 export class NegociacaoController {
   protected _inputData: JQuery;

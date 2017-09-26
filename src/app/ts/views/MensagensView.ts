@@ -1,7 +1,6 @@
-import { View } from './View';
-import { DateHelper } from './../helpers/DateHelper';
-import { Negociacao } from './../models/Negociacao';
-import { Negociacoes } from './../models/Negociacoes';
+import { View } from './index';
+import { DateHelper } from './../helpers/index';
+import { Negociacao, Negociacoes } from './../models/index';
 
 export class MensagensView extends View<string> {
   private _timer: number;

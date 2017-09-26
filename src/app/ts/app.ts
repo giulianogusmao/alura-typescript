@@ -1,10 +1,7 @@
-import { NegociacaoControllerBuilder } from './Builder/NegociacaoCtrlBuilder';
-import { NegociacaoController } from './controllers/NegociacaoController';
+import { NegociacaoController } from './controllers/index';
+import { NegociacaoControllerBuilder } from './Builder/index';
 
 var negociacaoCtrl = new NegociacaoController();
-
-
-
 
 $('form').on('submit', negociacaoCtrl.adiciona.bind(negociacaoCtrl));
 
