@@ -1,6 +1,7 @@
 import { Negociacao, Negociacoes } from './../models/index';
 import { MensagensView, NegociacoesView } from './../views/index';
-import { DateHelper, logaTempoDeExecucao, injectorDOM } from './../helpers/index';
+import { DateHelper, logaTempoDeExecucao, injectorDOM, throttle } from './../helpers/index';
+import { NegociacaoesService } from './../Services/index';
 
 export class NegociacaoController {
 
@@ -16,15 +17,15 @@ export class NegociacaoController {
   private _negociacoes = new Negociacoes();
   private _negociacoesView = new NegociacoesView('#listaNegociacoes');
   private _mensagensView = new MensagensView('#mensagemView');
+  private _negociacoesService = new NegociacaoesService();
 
   constructor() {
     this._negociacoesView.update(this._negociacoes);
   }
 
   // @logaTempoDeExecucao(true)
-  adiciona(event: Event): void {
-    event.preventDefault();
-
+  @throttle()
+  adiciona(event?: Event): void {
     let negociacao = this._criaNegociacao();
 
     if (!this._isDiaUtil(negociacao.data)) { // regra de negócio deve ser inserido na model negociacao
@@ -36,6 +37,17 @@ export class NegociacaoController {
     this._negociacoesView.update(this._negociacoes);
     this._mensagensView.update('Negociação incluída com sucesso!');
     this._limpaFormulario();
+  }
+
+  @throttle()
+  importa(): void {
+    this._negociacoesService.getNegociacoes()
+      .then(negociacoes => {
+        negociacoes.map(negociacao => this._negociacoes.add(negociacao));
+        this._negociacoesView.update(this._negociacoes);
+        this._mensagensView.update('Negociações importadas com sucesso!');
+      })
+      .catch(err => this._mensagensView.update(err));
   }
 
   private _criaNegociacao(): Negociacao {

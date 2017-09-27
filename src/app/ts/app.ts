@@ -4,6 +4,7 @@ import { NegociacaoControllerBuilder } from './Builder/index';
 var negociacaoCtrl = new NegociacaoController();
 
 $('form').on('submit', negociacaoCtrl.adiciona.bind(negociacaoCtrl));
+$('.btn-importar').on('click', negociacaoCtrl.importa.bind(negociacaoCtrl));
 
 // scripts para teste
 
