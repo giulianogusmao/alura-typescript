@@ -1,6 +1,6 @@
-import { Negociacao } from './index';
+import { Negociacao, IsEquals } from './index';
 
-export class Negociacoes {
+export class Negociacoes implements IsEquals<Negociacoes> {
 
   constructor(
     private _lista: Negociacao[] = []
@@ -14,5 +14,9 @@ export class Negociacoes {
 
   toArray(): Negociacao[] {
     return ([] as Negociacao[]).concat(this._lista);
+  }
+
+  isEquals(negociacoes: Negociacoes) {
+    return JSON.stringify(this.toArray()) == JSON.stringify(negociacoes.toArray());
   }
 }

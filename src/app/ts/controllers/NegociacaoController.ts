@@ -43,7 +43,15 @@ export class NegociacaoController {
   importa(): void {
     this._negociacoesService.getNegociacoes()
       .then(negociacoes => {
-        negociacoes.map(negociacao => this._negociacoes.add(negociacao));
+
+        // não importa negociacoes repetidas
+        let importar = negociacoes.filter(negociacao =>
+          !this._negociacoes.toArray().some(negociacaoExistente =>
+            negociacao.isEquals(negociacaoExistente)
+          )
+        );
+
+        importar.forEach(negociacao => this._negociacoes.add(negociacao));
         this._negociacoesView.update(this._negociacoes);
         this._mensagensView.update('Negociações importadas com sucesso!');
       })
