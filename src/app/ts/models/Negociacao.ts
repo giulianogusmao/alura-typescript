@@ -9,6 +9,11 @@ export class Negociacao implements MinhasInterfaces<Negociacao> {
   ) {
     this.quantidade = parseInt(this.quantidade.toString());
     this.valor = Number(parseFloat(this.valor.toString()).toFixed(2));
+
+    // não permite adicionar negociacoes geradas nos finais de semana
+    if (!this._isDiaUtil(this.data)) {
+      throw 'Data da negociação deve ser um dia útil';
+    }
   }
 
   get volume(): number {
@@ -26,4 +31,19 @@ export class Negociacao implements MinhasInterfaces<Negociacao> {
   toStr(): string {
     return JSON.stringify(this);
   }
+
+  private _isDiaUtil(date: Date) {
+    return date.getDay() != DiaSemana.Sabado && date.getDay() != DiaSemana.Domingo;
+  }
+
+}
+
+enum DiaSemana {
+  Domingo,
+  Segunda,
+  Terca,
+  Quarta,
+  Quinta,
+  Sexta,
+  Sabado
 }

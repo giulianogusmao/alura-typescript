@@ -1,6 +1,6 @@
-import { Negociacao, IsEquals } from './index';
+import { Negociacao } from './index';
 
-export class Negociacoes implements IsEquals<Negociacoes> {
+export class Negociacoes {
 
   constructor(
     private _lista: Negociacao[] = []
@@ -9,6 +9,11 @@ export class Negociacoes implements IsEquals<Negociacoes> {
   }
 
   add(negociacao: Negociacao): void {
+
+    // não permite inserir negociacao repetida
+    if (this._existe(negociacao))
+      return;
+
     this._lista.push(negociacao);
   }
 
@@ -16,7 +21,10 @@ export class Negociacoes implements IsEquals<Negociacoes> {
     return ([] as Negociacao[]).concat(this._lista);
   }
 
-  isEquals(negociacoes: Negociacoes) {
-    return JSON.stringify(this.toArray()) == JSON.stringify(negociacoes.toArray());
+  private _existe(negociacao: Negociacao) {
+    return this._lista.some(negociacaoExistente =>
+      negociacaoExistente.isEquals(negociacao)
+    )
   }
+
 }

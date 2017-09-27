@@ -9,7 +9,7 @@ export class NegociacaoController {
   protected _inputData: JQuery;
 
   @injectorDOM('#quantidade')
-  protected _inputQuantidade: JQuery ;
+  protected _inputQuantidade: JQuery;
 
   @injectorDOM('#valor')
   protected _inputValor: JQuery;
@@ -26,14 +26,7 @@ export class NegociacaoController {
   // @logaTempoDeExecucao(true)
   @throttle()
   adiciona(event?: Event): void {
-    let negociacao = this._criaNegociacao();
-
-    if (!this._isDiaUtil(negociacao.data)) { // regra de negócio deve ser inserido na model negociacao
-      this._mensagensView.update('Data da negociação deve ser um dia útil');
-      return;
-    }
-
-    this._negociacoes.add(negociacao);
+    this._negociacoes.add(this._criaNegociacao());
     this._negociacoesView.update(this._negociacoes);
     this._mensagensView.update('Negociação incluída com sucesso!');
     this._limpaFormulario();
@@ -43,15 +36,7 @@ export class NegociacaoController {
   importa(): void {
     this._negociacoesService.getNegociacoes()
       .then(negociacoes => {
-
-        // não importa negociacoes repetidas
-        let importar = negociacoes.filter(negociacao =>
-          !this._negociacoes.toArray().some(negociacaoExistente =>
-            negociacao.isEquals(negociacaoExistente)
-          )
-        );
-
-        importar.forEach(negociacao => this._negociacoes.add(negociacao));
+        negociacoes.forEach(negociacao => this._negociacoes.add(negociacao));
         this._negociacoesView.update(this._negociacoes);
         this._mensagensView.update('Negociações importadas com sucesso!');
       })
@@ -60,26 +45,29 @@ export class NegociacaoController {
 
   private _criaNegociacao(): Negociacao {
     let data = <string>this._inputData.val(),
-        quantidade = <string>this._inputQuantidade.val(),
-        valor = <string>this._inputValor.val();
+      quantidade = <string>this._inputQuantidade.val(),
+      valor = <string>this._inputValor.val();
 
-    let negociacao = new Negociacao(
-      DateHelper.strToDate(data),
-      parseInt(quantidade),
-      parseFloat(valor)
-    );
+    let negociacao: Negociacao;
 
-    return negociacao;
+    try {
+      negociacao = new Negociacao(
+        DateHelper.strToDate(data),
+        parseInt(quantidade),
+        parseFloat(valor)
+      );
+      return negociacao;
+
+    } catch (err) {
+      this._mensagensView.update(err);
+      throw new Error(err);
+    }
   }
 
   private _limpaFormulario(): void {
     this._inputData.val('');
     this._inputQuantidade.val('1');
     this._inputValor.val('0.0');
-  }
-
-  private  _isDiaUtil(date: Date) {
-    return date.getDay() != DiaSemana.Sabado && date.getDay() != DiaSemana.Domingo;
   }
 }
 
