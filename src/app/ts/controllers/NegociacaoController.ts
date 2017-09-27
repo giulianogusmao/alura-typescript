@@ -33,14 +33,15 @@ export class NegociacaoController {
   }
 
   @throttle()
-  importa(): void {
-    this._negociacoesService.getNegociacoes()
-      .then(negociacoes => {
-        negociacoes.forEach(negociacao => this._negociacoes.add(negociacao));
-        this._negociacoesView.update(this._negociacoes);
-        this._mensagensView.update('Negociações importadas com sucesso!');
-      })
-      .catch(err => this._mensagensView.update(err));
+  async importa() {
+    try {
+      const negociacoes = await this._negociacoesService.getNegociacoes();
+      negociacoes.forEach(negociacao => this._negociacoes.add(negociacao));
+      this._negociacoesView.update(this._negociacoes);
+      this._mensagensView.update('Negociações importadas com sucesso!');
+    } catch (err) {
+      this._mensagensView.update(err);
+    }
   }
 
   private _criaNegociacao(): Negociacao {
