@@ -1,10 +1,16 @@
-import { DateHelper, logaTempoDeExecucao } from './../helpers/index';
 import { Negociacao, Negociacoes } from './../models/index';
 import { MensagensView, NegociacoesView } from './../views/index';
+import { DateHelper, logaTempoDeExecucao, injectorDOM } from './../helpers/index';
 
 export class NegociacaoController {
+
+  @injectorDOM('#data')
   protected _inputData: JQuery;
+
+  @injectorDOM('#quantidade')
   protected _inputQuantidade: JQuery ;
+
+  @injectorDOM('#valor')
   protected _inputValor: JQuery;
 
   private _negociacoes = new Negociacoes();
@@ -12,10 +18,6 @@ export class NegociacaoController {
   private _mensagensView = new MensagensView('#mensagemView');
 
   constructor() {
-    this._inputData = $('#data');
-    this._inputQuantidade = $('#quantidade');
-    this._inputValor = $('#valor');
-
     this._negociacoesView.update(this._negociacoes);
   }
 
