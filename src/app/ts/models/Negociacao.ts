@@ -1,6 +1,6 @@
-import { IsEquals } from './IsEquals';
+import { MinhasInterfaces } from './MinhasInterfaces';
 
-export class Negociacao implements IsEquals<Negociacao> {
+export class Negociacao implements MinhasInterfaces<Negociacao> {
 
   constructor(
     readonly data: Date,
@@ -21,5 +21,9 @@ export class Negociacao implements IsEquals<Negociacao> {
       && this.data.getFullYear() == negociacao.data.getFullYear()
       && this.quantidade == negociacao.quantidade
       && this.valor == negociacao.valor;
+  }
+
+  toStr(): string {
+    return JSON.stringify(this);
   }
 }
